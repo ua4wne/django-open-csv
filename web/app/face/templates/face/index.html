@@ -12,6 +12,14 @@
         <input type="submit">
         {% csrf_token %}
     </form>
-    {{ data }}
+    {% if image_urls %}
+    <ul>
+    {% for image in image_urls %}
+        <li>{{ image.image_url }}</li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No images.</p>
+{% endif %}
 </body>
 </html>

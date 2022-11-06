@@ -13,6 +13,6 @@ services:
   db:
     image: postgres:11-alpine
     environment:
-      - POSTGRES_USER=user
-      - POSTGRES_PASSWORD=pass
+      - POSTGRES_USER=postgress
+      - POSTGRES_PASSWORD=postgress
       - POSTGRES_DB=open_cv
