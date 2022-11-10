@@ -1,25 +1,38 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'face/style.css' %}">
     <title>Face App</title>
 </head>
 <body>
-    <form action="" method="post">
-        <input type="text" name="image_url">
-        <input type="submit">
-        {% csrf_token %}
-    </form>
-    {% if image_urls %}
-    <ul>
-    {% for image in image_urls %}
-        <li>{{ image.image_url }}</li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No images.</p>
-{% endif %}
+    <div class="wrapper">
+        <form action="" method="post">
+            <input type="text" name="image_url">
+            <input type="submit">
+            {% csrf_token %}
+        </form>
+        <div class="galery">
+            {% if image_urls %}
+            
+            {% for image_url in image_urls %}
+            <div class="image-container">
+                <img src="{{ image_url.image_url }}">
+                {% for bb in image_url.boundingbox_set.all %}
+                    <div class="bounding-box" style="top: {{ bb.top }}%; right: {{ bb.right }}%; bottom: {{ bb.bottom }}%; left: {{ bb.left }}%;"></div>
+               
+                {% endfor %}
+                <a href="{% url 'delete' image_url.id %}" class="btn-delete">delete</a>
+            </div>
+            {% endfor %}
+            
+            {% else %}
+                <p>No images.</p>
+            {% endif %}
+        </div>
+    </div>
 </body>
 </html>
