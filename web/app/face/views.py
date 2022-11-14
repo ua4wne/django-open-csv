@@ -35,6 +35,7 @@ def index(request):
     context = {'image_urls': urls}
     return render(request, 'face/index.html', context)
 
+
 def delete(request, url_id):
     item = models.Url.objects.get(pk=url_id)
     item.delete()
